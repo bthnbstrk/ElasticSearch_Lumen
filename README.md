@@ -4,7 +4,7 @@
 
 ## Step One
 
-*Composer Install*
+*composer install command run your terminal*
  
 ## Step Two
  
