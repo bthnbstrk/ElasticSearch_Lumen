@@ -9,7 +9,9 @@
 ## Step Two
  
 *brew tap elastic/tap*
+
 *brew install elastic/tap/elasticsearch-full*
+
 *Start your elastic with brew services*
 
 ## Step Three
