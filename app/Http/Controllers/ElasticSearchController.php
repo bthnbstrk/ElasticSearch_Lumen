@@ -45,21 +45,19 @@ class ElasticSearchController extends Controller
             ->build();
 
         $response = $client->info();
-
-        echo $response['version']['number'];
-        die;
+        die($response['version']['number']);
     }
 
     public function insert()
     {
         $params = [
-            'index' => 'test_deneme',
+            'index' => 'company_docs',
             'id' => null,
             'body' => [
                 'parent_id' => 10,
-                'company_name' => 'XdenemeX Şirketi',
-                'company_phone' => '05375019083',
-                'company_email' => ['info@badidas.com', 'mandalinakoydum@kolonya.com', 'portakalsoydum@kolonya.com'],
+                'company_name' => 'Company Test',
+                'company_phone' => '123-456-444',
+                'company_email' => ['info@company.com', 'support@company.com', 'learn@company.com'],
             ]
         ];
 
@@ -83,8 +81,8 @@ class ElasticSearchController extends Controller
             'index' => $index,
             'id' => $id,
             'body' => [
-                'company_name' => 'Baadidas Şirketi',
-                'company_phone' => '05375019083',
+                'company_name' => 'Updated Company',
+                'company_phone' => '1222-222-222',
             ]
         ];
 
@@ -104,7 +102,7 @@ class ElasticSearchController extends Controller
     {
         try {
             $response = $this->elastic_search_client->delete([
-                'index' => 'company_local',
+                'index' => 'company_docs',
                 'id' => $id
             ]);
             dd($response);
@@ -122,7 +120,7 @@ class ElasticSearchController extends Controller
         /** Query 1 **/
         /*
         $params = [
-            'index' => 'company_info',
+            'index' => 'company_docs',
             'from'=>0,
             'size'=>10,
             'body' => [
@@ -138,7 +136,7 @@ class ElasticSearchController extends Controller
         /** Query 2 **/
         /*
         $params = [
-            'index' => 'company_info_new',
+            'index' => 'company_docs',
             'from' => 0,
             'size' => 1000,
             'body' => [
@@ -165,7 +163,7 @@ class ElasticSearchController extends Controller
         /** SQL: Select * from company_info_new where parent_id=2185 and company_phone='+19525402384' and company_email!='abc@gmail.com'  **/
         /*
         $params = [
-            'index' => 'company_info_new',
+            'index' => 'company_docs',
             'from' => 0,
             'size' => 1000,
             'body' => [
@@ -186,7 +184,7 @@ class ElasticSearchController extends Controller
         /** Query 4 **/
         /*
        $params = [
-           'index' => 'company_info_new',
+           'index' => 'company_docs',
            'from' => 0,
            'size' => 100,
            'body' => [
@@ -211,13 +209,13 @@ class ElasticSearchController extends Controller
 
         /** Query 5 **/
         $params = [
-            'index' => 'company_info_new',
+            'index' => 'company_docs',
             'from' => 0,
             'size' => 1000,
             'body' => [
                 "query" => [
                     "bool" => [
-                        "must" => [['match' => ['company_email' => 'ax.com']], ['match_phrase' => ['company_phone' => '+19525402384']],],
+                        "must" => [['match' => ['company_email' => 'info@company.com']], ['match_phrase' => ['company_phone' => '+19525402384']],],
                     ]
                 ]
             ]
